@@ -1,0 +1,140 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://graphics/images/player/body-sheet.png" type="Texture" id=1]
+[ext_resource path="res://source/game/Gun/Gun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/game/Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://source/game/Main/Camera.gd" type="Script" id=4]
+[ext_resource path="res://graphics/images/player/crown.png" type="Texture" id=5]
+[ext_resource path="res://graphics/images/player/expressions-sheet.png" type="Texture" id=6]
+[ext_resource path="res://sounds/effects/wilhelm.ogg" type="AudioStream" id=7]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 22.0
+height = 12.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 30, 30 )
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=4]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=5]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 3 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Crown" type="Sprite" parent="Sprites"]
+visible = false
+texture = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="Sprites"]
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Eyes" type="Sprite" parent="Sprites"]
+texture = ExtResource( 6 )
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 7 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource( 2 )
+
+[node name="Gun" parent="." instance=ExtResource( 2 )]
+
+[node name="SendUpdate" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Camera" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/damaged = SubResource( 3 )
+anims/dead = SubResource( 4 )
+anims/default = SubResource( 5 )
+anims/king_default = SubResource( 6 )
+
+[node name="Wilhelm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+[connection signal="timeout" from="SendUpdate" to="." method="_on_SendUpdate_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

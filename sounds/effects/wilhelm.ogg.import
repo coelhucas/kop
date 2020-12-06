@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/wilhelm.ogg-beb42e8b4d98b83ee169a954e30fd9e1.oggstr"
+
+[deps]
+
+source_file="res://sounds/effects/wilhelm.ogg"
+dest_files=[ "res://.import/wilhelm.ogg-beb42e8b4d98b83ee169a954e30fd9e1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

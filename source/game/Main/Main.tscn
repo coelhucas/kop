@@ -1,0 +1,555 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://source/game/Main/Main.gd" type="Script" id=1]
+[ext_resource path="res://source/game/GUI/GUI.gd" type="Script" id=2]
+[ext_resource path="res://source/game/Main/Map.gd" type="Script" id=3]
+[ext_resource path="res://graphics/fonts/Fifth-Grader.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://graphics/fonts/Roboto-Light.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://graphics/fonts/Roboto-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://sounds/effects/clock_tick.ogg" type="AudioStream" id=7]
+[ext_resource path="res://sounds/effects/ready_go.ogg" type="AudioStream" id=8]
+[ext_resource path="res://sounds/music/music_03.ogg" type="AudioStream" id=9]
+[ext_resource path="res://source/game/Wall/Wall.tscn" type="PackedScene" id=10]
+[ext_resource path="res://graphics/fonts/Riscada Doodle.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://graphics/fonts/Roboto-Black.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://graphics/images/player/body-sheet.png" type="Texture" id=13]
+[ext_resource path="res://graphics/images/player/expressions-sheet.png" type="Texture" id=14]
+[ext_resource path="res://graphics/images/player/crown.png" type="Texture" id=15]
+[ext_resource path="res://graphics/images/heart.png" type="Texture" id=16]
+[ext_resource path="res://source/game/Main/HUD.gd" type="Script" id=17]
+[ext_resource path="res://sounds/music/music_02.ogg" type="AudioStream" id=18]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3, 600 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 960, 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 3, 240 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 320, 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 34
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 32
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 24
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=13]
+font_data = ExtResource( 11 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 320.304 ]
+}
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="PlayersContainer" type="YSort" parent="World"]
+
+[node name="BulletsContainer" type="Node2D" parent="World"]
+
+[node name="Map" type="Node2D" parent="World"]
+script = ExtResource( 3 )
+
+[node name="Boundaries" type="StaticBody2D" parent="World/Map"]
+
+[node name="L" type="CollisionShape2D" parent="World/Map/Boundaries"]
+position = Vector2( -640, 240 )
+shape = SubResource( 1 )
+
+[node name="R" type="CollisionShape2D" parent="World/Map/Boundaries"]
+position = Vector2( 1280, 240 )
+shape = SubResource( 1 )
+
+[node name="U" type="CollisionShape2D" parent="World/Map/Boundaries"]
+position = Vector2( 320, -361 )
+shape = SubResource( 2 )
+
+[node name="D" type="CollisionShape2D" parent="World/Map/Boundaries"]
+position = Vector2( 320, 837 )
+shape = SubResource( 2 )
+
+[node name="CameraPoints" type="Node2D" parent="World/Map"]
+
+[node name="UpperLeft" type="Position2D" parent="World/Map/CameraPoints"]
+position = Vector2( -640, -361 )
+
+[node name="BottomRight" type="Position2D" parent="World/Map/CameraPoints"]
+position = Vector2( 1280, 837 )
+
+[node name="LobbyBoundaries" type="StaticBody2D" parent="World/Map"]
+
+[node name="L" type="CollisionShape2D" parent="World/Map/LobbyBoundaries"]
+position = Vector2( -3, 240 )
+shape = SubResource( 3 )
+
+[node name="R" type="CollisionShape2D" parent="World/Map/LobbyBoundaries"]
+position = Vector2( 643, 240 )
+shape = SubResource( 3 )
+
+[node name="U" type="CollisionShape2D" parent="World/Map/LobbyBoundaries"]
+position = Vector2( 320, -3 )
+shape = SubResource( 4 )
+
+[node name="D" type="CollisionShape2D" parent="World/Map/LobbyBoundaries"]
+position = Vector2( 320, 483 )
+shape = SubResource( 4 )
+
+[node name="Walls" type="Node2D" parent="World/Map"]
+
+[node name="Wall" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( -64, 0 )
+
+[node name="Wall2" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( -64, -64 )
+
+[node name="Wall3" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 0, -64 )
+
+[node name="Wall4" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 512, -64 )
+
+[node name="Wall5" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 576, -64 )
+
+[node name="Wall6" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 640, -64 )
+
+[node name="Wall7" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 640, 0 )
+
+[node name="Wall8" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 64, -64 )
+
+[node name="Wall9" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 192, 320 )
+
+[node name="Wall10" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 256, 320 )
+
+[node name="Wall11" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 320, 320 )
+
+[node name="Wall12" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 384, 320 )
+
+[node name="Wall13" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 0, 512 )
+
+[node name="Wall14" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 64, 512 )
+
+[node name="Wall15" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 128, 512 )
+
+[node name="Wall16" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 192, 512 )
+
+[node name="Wall17" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 256, 512 )
+
+[node name="Wall18" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 320, 512 )
+
+[node name="Wall19" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 384, 512 )
+
+[node name="Wall20" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 448, 512 )
+
+[node name="Wall21" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 512, 512 )
+
+[node name="Wall22" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 576, 512 )
+
+[node name="Wall23" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 384, 640 )
+
+[node name="Wall24" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 384, 704 )
+
+[node name="Wall25" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 192, 704 )
+
+[node name="Wall26" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 192, 640 )
+
+[node name="Wall27" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( -320, 320 )
+
+[node name="Wall28" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 960, 576 )
+
+[node name="Wall29" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 1088, 128 )
+
+[node name="Wall30" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( -384, -192 )
+
+[node name="Wall31" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 960, -320 )
+
+[node name="Wall32" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 960, -256 )
+
+[node name="Wall33" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 256, -384 )
+
+[node name="Wall34" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 320, -384 )
+
+[node name="Wall35" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 384, -384 )
+
+[node name="Wall36" parent="World/Map/Walls" instance=ExtResource( 10 )]
+position = Vector2( 128, -256 )
+
+[node name="GUI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClockSound" type="AudioStreamPlayer" parent="GUI"]
+stream = ExtResource( 7 )
+
+[node name="ReadyGo" type="AudioStreamPlayer" parent="GUI"]
+stream = ExtResource( 8 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GUI"]
+
+[node name="StartGame" type="Button" parent="GUI/CanvasLayer"]
+visible = false
+margin_left = 191.0
+margin_top = 420.0
+margin_right = 449.0
+margin_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+text = "START GAME ( NEEDS 0 PLAYERS)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Countdown" type="Label" parent="GUI/CanvasLayer"]
+visible = false
+margin_left = 300.0
+margin_top = 13.0
+margin_right = 340.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 5 )
+text = "5"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HUD" type="Control" parent="GUI/CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="heart" type="Sprite" parent="GUI/CanvasLayer/HUD"]
+position = Vector2( 40, 38 )
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="GUI/CanvasLayer/HUD"]
+margin_left = 66.0
+margin_top = 17.0
+margin_right = 114.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 6 )
+text = "5/5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResultScreen" type="Control" parent="GUI/CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="GUI/CanvasLayer/ResultScreen"]
+margin_right = 640.0
+margin_bottom = 480.0
+color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/CanvasLayer/ResultScreen"]
+margin_left = 184.0
+margin_top = 267.0
+margin_right = 456.0
+margin_bottom = 339.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/CanvasLayer/ResultScreen/VBoxContainer"]
+margin_right = 272.0
+margin_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 7 )
+text = "King's Victory"
+align = 1
+
+[node name="Button" type="Button" parent="GUI/CanvasLayer/ResultScreen/VBoxContainer"]
+margin_top = 47.0
+margin_right = 272.0
+margin_bottom = 72.0
+custom_fonts/font = SubResource( 8 )
+text = "PLAY AGAIN"
+
+[node name="King" type="Node2D" parent="GUI/CanvasLayer/ResultScreen"]
+
+[node name="crown" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/King"]
+position = Vector2( 321, 217 )
+texture = ExtResource( 15 )
+
+[node name="Sprite" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/King"]
+position = Vector2( 320, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/King/Sprite"]
+texture = ExtResource( 14 )
+hframes = 4
+frame = 2
+
+[node name="Guests" type="Node2D" parent="GUI/CanvasLayer/ResultScreen"]
+visible = false
+
+[node name="Sprite2" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests"]
+position = Vector2( 274, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests/Sprite2"]
+texture = ExtResource( 14 )
+hframes = 4
+
+[node name="Sprite3" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests"]
+position = Vector2( 367, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests/Sprite3"]
+texture = ExtResource( 14 )
+hframes = 4
+
+[node name="Sprite" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests"]
+position = Vector2( 320, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ResultScreen/Guests/Sprite"]
+texture = ExtResource( 14 )
+hframes = 4
+
+[node name="DisconnectedScreen" type="Control" parent="GUI/CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="GUI/CanvasLayer/DisconnectedScreen"]
+margin_right = 640.0
+margin_bottom = 480.0
+color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/CanvasLayer/DisconnectedScreen"]
+margin_left = 183.0
+margin_top = 192.0
+margin_right = 464.0
+margin_bottom = 285.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/CanvasLayer/DisconnectedScreen/VBoxContainer"]
+margin_right = 281.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 9 )
+text = "connection lost :("
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="GUI/CanvasLayer/DisconnectedScreen/VBoxContainer"]
+margin_top = 73.0
+margin_right = 281.0
+margin_bottom = 98.0
+custom_fonts/font = SubResource( 10 )
+text = "RECONNECT"
+
+[node name="ReconnectScreen" type="Control" parent="GUI/CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="GUI/CanvasLayer/ReconnectScreen"]
+margin_right = 640.0
+margin_bottom = 480.0
+color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="King2" type="Node2D" parent="GUI/CanvasLayer/ReconnectScreen"]
+position = Vector2( -184, -76 )
+rotation = 0.0082183
+
+[node name="crown" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/King2"]
+position = Vector2( 321, 217 )
+texture = ExtResource( 15 )
+
+[node name="Sprite" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/King2"]
+position = Vector2( 320, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/King2/Sprite"]
+texture = ExtResource( 14 )
+hframes = 4
+frame = 2
+
+[node name="Guests2" type="Node2D" parent="GUI/CanvasLayer/ReconnectScreen"]
+position = Vector2( 139, -74 )
+
+[node name="Sprite2" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2"]
+position = Vector2( 274, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2/Sprite2"]
+position = Vector2( -7, 0 )
+texture = ExtResource( 14 )
+flip_h = true
+hframes = 4
+
+[node name="Sprite3" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2"]
+position = Vector2( 367, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2/Sprite3"]
+position = Vector2( -7, 0 )
+texture = ExtResource( 14 )
+flip_h = true
+hframes = 4
+
+[node name="Sprite" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2"]
+position = Vector2( 320, 218 )
+texture = ExtResource( 13 )
+hframes = 2
+
+[node name="expressions-sheet" type="Sprite" parent="GUI/CanvasLayer/ReconnectScreen/Guests2/Sprite"]
+position = Vector2( -7, 0 )
+texture = ExtResource( 14 )
+flip_h = true
+hframes = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/CanvasLayer/ReconnectScreen"]
+margin_left = 86.0
+margin_top = 229.0
+margin_right = 561.0
+margin_bottom = 375.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/CanvasLayer/ReconnectScreen/VBoxContainer"]
+margin_right = 475.0
+margin_bottom = 79.0
+custom_fonts/font = SubResource( 11 )
+text = "There's already a game occurring.
+Try again in 5..."
+align = 1
+
+[node name="Button" type="Button" parent="GUI/CanvasLayer/ReconnectScreen/VBoxContainer"]
+margin_top = 111.0
+margin_right = 475.0
+margin_bottom = 146.0
+custom_fonts/font = SubResource( 12 )
+disabled = true
+text = "Reconnect"
+
+[node name="Timer" type="Timer" parent="GUI/CanvasLayer/ReconnectScreen"]
+
+[node name="Spectating" type="Label" parent="GUI/CanvasLayer"]
+visible = false
+margin_left = 278.0
+margin_top = 440.0
+margin_right = 363.0
+margin_bottom = 461.0
+custom_fonts/font = SubResource( 13 )
+text = "spectating"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InGameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="LobbyMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -20.0
+autoplay = true
+[connection signal="pressed" from="GUI/CanvasLayer/StartGame" to="." method="_on_StartGame_pressed"]
+[connection signal="pressed" from="GUI/CanvasLayer/ResultScreen/VBoxContainer/Button" to="." method="_on_Play_Again_Button_pressed"]
+[connection signal="pressed" from="GUI/CanvasLayer/DisconnectedScreen/VBoxContainer/Button" to="." method="_on_Reconnect_Button_pressed"]
+[connection signal="pressed" from="GUI/CanvasLayer/ReconnectScreen/VBoxContainer/Button" to="." method="_on_Reconnect_Button_pressed"]
+[connection signal="timeout" from="GUI/CanvasLayer/ReconnectScreen/Timer" to="GUI" method="_on_Timer_timeout"]
