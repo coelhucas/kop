@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 		client.poll()
 
 func connect_to_server() -> void:
-	SERVER_URL = GodotEnv.get_var("SERVER_URL") + ":" + str(GameServer.PORT)
+	SERVER_URL = "ws://" + GodotEnv.get_var("SERVER_URL") + ":" + str(GameServer.PORT)
 	print(SERVER_URL)
 	var err := client.connect_to_url(SERVER_URL)
 	Logger.print("Attempt to connect to server at %s..." % SERVER_URL)
