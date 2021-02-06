@@ -1,5 +1,11 @@
 # King of Parties
 
+<a href="https://www.youtube.com/watch?v=FMZOk2F4W_w">
+        <img src="https://i.ytimg.com/vi/FMZOk2F4W_w/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRKbUd9muZt5bMBoVfbRzmpdhTBA" />
+</a>
+
+<sup>*Final game.*</sup>
+
 ### About
 This game was made in a few (around ~8) hours to be used as a proof of concept of a talk I made for [Godot Online Brazil 2020](https://georgemarques.dev/godot-online-2020/) which theme was
 the usage of WebSockets in Godot for real time multiplayer.
